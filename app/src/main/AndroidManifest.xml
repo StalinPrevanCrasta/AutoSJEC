@@ -15,6 +15,11 @@
         android:theme="@style/Theme.AutoSJEC"
         tools:targetApi="31">
         <activity
+            android:name=".SuccessActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
