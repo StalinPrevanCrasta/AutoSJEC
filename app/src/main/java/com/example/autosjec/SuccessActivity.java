@@ -1,7 +1,8 @@
 package com.example.autosjec;
 
 import android.os.Bundle;
-import android.widget.TextView;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SuccessActivity extends AppCompatActivity {
@@ -10,12 +11,38 @@ public class SuccessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_success);
 
-        TextView successMessageTextView = findViewById(R.id.success_message);
+        try {
+            String universityNumber = getIntent().getStringExtra("UNIVERSITY_NUMBER");
+            String dateOfBirth = getIntent().getStringExtra("DATE_OF_BIRTH");
 
-        String universityNumber = getIntent().getStringExtra("UNIVERSITY_NUMBER");
-        String dateOfBirth = getIntent().getStringExtra("DATE_OF_BIRTH");
+            WebView webView = new WebView(this);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.setWebViewClient(new WebViewClient() {
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    try {
+                        String[] dobParts = dateOfBirth.split("-");
+                        String day = dobParts[0];
+                        String month = dobParts[1];
+                        String year = dobParts[2];
 
-        String successMessage = "Login Successful\n\nUniversity Number: " + universityNumber + "\nDate of Birth: " + dateOfBirth;
-        successMessageTextView.setText(successMessage);
+                        webView.evaluateJavascript(
+                            "document.getElementById('username').value = '" + universityNumber + "';" +
+                            "document.getElementById('dd').value = '" + day + "';" +
+                            "document.getElementById('mm').value = '" + month + "';" +
+                            "document.getElementById('yyyy').value = '" + year + "';" +
+                             "putdate(); " +
+                            "document.querySelector('.cn-login-btn').click();", null
+                        );
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            setContentView(webView);
+            webView.loadUrl("https://sjecparents.contineo.in/");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
