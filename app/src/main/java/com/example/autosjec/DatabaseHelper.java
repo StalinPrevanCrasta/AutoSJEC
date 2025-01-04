@@ -41,14 +41,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public boolean deleteUser(String universityNumber) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, COL_2 + " = ?", new String[]{universityNumber}) > 0;
+    }
+
     public List<String> getAllUsers() {
         List<String> users = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("SELECT " + COL_2 + " FROM " + TABLE_NAME, null);
         while (res.moveToNext()) {
             users.add(res.getString(0));
         }
         res.close();
         return users;
+    }
+
+    public String getDateOfBirth(String universityNumber) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT " + COL_3 + " FROM " + TABLE_NAME + " WHERE " + COL_2 + " = ?", new String[]{universityNumber});
+        if (res.moveToFirst()) {
+            String dateOfBirth = res.getString(0);
+            res.close();
+            return dateOfBirth;
+        }
+        res.close();
+        return null;
     }
 }

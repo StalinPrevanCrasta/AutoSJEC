@@ -46,6 +46,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/heading" />
 
+    <LinearLayout
+        android:id="@+id/registered_users_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registered_users_textview" />
+
     <EditText
         android:id="@+id/university_number"
         android:layout_width="0dp"
@@ -54,12 +66,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:hint="University Number"
-        android:inputType="number"
+        android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="#B0B0B0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registered_users_textview" />
+        app:layout_constraintTop_toBottomOf="@id/registered_users_container" />
 
     <EditText
         android:id="@+id/date_of_birth"
