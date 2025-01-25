@@ -71,7 +71,8 @@ public class SuccessActivity extends AppCompatActivity {
 //            return true;
 //        } else
         if (item.getItemId() == R.id.action_download) {
-            Toast.makeText(this, "Download feature coming soon", Toast.LENGTH_SHORT).show();
+            DataScraper ds = new DataScraper(this, webView);
+            ds.scrapeAndSave();
             return true;
         }
         return super.onOptionsItemSelected(item);
